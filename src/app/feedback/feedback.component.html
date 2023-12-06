@@ -1,0 +1,61 @@
+<div class="body">
+    <div id="wrapper">
+        <div class="content-wrapper">
+            <div class="container-fluid">
+
+                <h1 class="h3 mb-2 text-gray-800">Quản lý phản hồi hệ thống</h1>
+                <p class="mb-4">"DPhản hồi từ sinh viên và giảng viên giúp cải thiện và phát triển hệ thống."</p>
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h6 class="card-heading">Bảng phản hồi đóng góp ý kến</h6>
+                    </div>
+                    <div class="card-body">
+                        <table class="table" id="dataTable">
+                            <thead>
+                                <tr>
+                                    <th style="width: 5%;">STT</th>
+                                    <th style="width: 10%;">Mã số</th>
+                                    <th style="width: 15%;">Họ tên</th>
+                                    <th style="width: 30%;">Nội dung phản hồi</th>
+                                    <th style="width: 15%;">Thao tác</th>
+                                    <th style="width: 25%;">Trả lời</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let feedback of feedbacks; let i = index">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>{{ feedback.student.numberStudent }}</td>
+                                    <td>{{ feedback.student.name }}</td>
+                                    <td>{{ feedback.note }}</td>
+                                    <td>
+
+                                        <div *ngIf="feedback.status == 1;">
+                                            Trả lời
+                                        </div>
+                                        <!-- <div *ngIf="feedback.status == 2;">
+                                            
+                                        </div> -->
+                                        <div *ngIf="feedback.status == 0;">
+                                            <a class="btn btn-primary btn-sm" style="margin-right: 5px;">
+                                                <i class="fas fa-edit"></i> Trả lời
+                                            </a>
+                                            <a class="btn btn-danger btn-sm" (click)="deleteFeedback(feedback)">
+                                                <i class="fas fa-trash"></i> Xóa
+                                            </a>
+                                        </div>
+
+                                    </td>
+
+                                    <td> {{ feedback.reply}} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</div>

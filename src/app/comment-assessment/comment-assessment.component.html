@@ -1,0 +1,68 @@
+<div class="body">
+    <div id="wrapper">
+        <div class="content-wrapper">
+            <div class="container-fluid">
+                <!-- Quản lý đề tài -->
+                <h1 class="heading">Quản lý nhận xét và đánh giá kết quả</h1>
+                <p class="sub-heading">Giảng viên nhận xét và đánh giá kết quả của sinh viên qua buổi báo cáo</p>
+                
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h6 class="card-heading">Kết quả nhận xét và đánh giá</h6>
+                    </div>
+                    <div class="card-body">
+                        <table class="table" id="dataTable">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>MSSV</th>
+                                    <th>Họ tên SV</th>
+                                    <th>Họ tên GV</th>
+                                    <th>Hình thức</th>
+                                    <th>Tóm tắt</th>
+                                    <th>Giới thiệu</th>
+                                    <th>Mô tả</th>
+                                    <th>TK, CĐ g.pháp</th>
+                                    <th>KT, đ.giá</th>
+                                    <th>Kết luận</th>
+                                    <th>Trình bày</th>
+                                    <th>Chất vấn</th>
+                                    <th>Điểm tổng</th>
+                                    <th>Ngày chấm</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let m of marks; let i = index">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>{{ m.student.numberStudent}}</td>
+                                    <td>{{ m.student.name}}</td>
+                                    <td>{{ m.teacher.name }}</td>
+                                    <td>{{ m.mark11}}</td>
+                                    <td>{{ m.mark12}}</td>
+                                    <td>{{ m.mark13}}</td>
+                                    <td>{{ m.mark14}}</td>
+                                    <td>{{ m.mark15}}</td>
+                                    <td>{{ m.mark2}}</td>
+                                    <td>{{ m.mark21}}</td>
+                                    <td>{{ m.mark22}}</td>
+                                    <td>{{ m.mark23}}</td>
+                                    <td>{{ m.sumMark }}</td>
+                                    <td>{{ m.sendDate}}</td>
+                                    <td>
+                                        <a class="btn btn-primary btn-sm" style="margin-right: 5px;">
+                                            <i class="fas fa-edit"></i> Đánh giá
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</div>

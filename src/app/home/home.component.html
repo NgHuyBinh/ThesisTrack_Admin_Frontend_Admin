@@ -1,0 +1,88 @@
+<div class="body" id="page-top">
+    <div id="wrapper" >
+        <ul class="navbar-nav bg-gradient-primary sidebar-dark accordion" id="accordionSidebar">
+
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" routerLink="/home">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-calendar fa-3x"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3" style="font-size: 22px; text-align: center;"><b>GRADUATION THESIS</b></div>
+            </a>            
+            <hr class="sidebar-divider my-1">
+            <div *ngIf="teacher">
+                <div class="sidebar-brand-text mx-3 namead">{{teacher.name}}</div>
+                <div class="sidebar-brand-text mx-3 namead">{{teacher.email}}</div>
+                <div class="sidebar-brand-text mx-3 namead">{{teacher.phone}}</div>
+            </div>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" routerLink="/home">
+                    <i class="fas fa-home"></i>
+                    <span>Trang chủ</span></a>
+            </li>
+            <hr class="sidebar-divider">
+
+            <div class="sidebar-brand-text mx-3 namead" style="margin-bottom: 700px;">
+                Hệ thống quản lý
+            </div>
+            
+            <hr class="sidebar-divider">
+        </ul>
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <div id="content">
+
+                <!-- top bar -  header của trang quản trị -->
+                <app-topbar></app-topbar>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- quản lý nội dung -->
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <!-- Graduation Thesis Management Software System -->
+                        <h1 class="h3 mb-0 text-gray-800">GRADUATION THESIS MANAGEMENT SOFTWARE SYSTEM - HỆ THỐNG QUẢN
+                            LÝ
+                            LỊCH BÁO CÁO LUẬN VĂN TỐT NGHIỆP</h1>
+                        <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                    class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
+                    </div>
+
+                    <!-- Content Row -->
+                    <!-- các chức năng quản lý  -->
+                    <app-content-row></app-content-row>
+                    <!-- Content Row -->
+
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <app-footer></app-footer>
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>
+
+</div>

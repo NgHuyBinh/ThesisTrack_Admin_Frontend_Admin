@@ -1,0 +1,196 @@
+<div class="body">
+    <div id="wrapper">
+        <div class="content-wrapper">
+            <div class="container-fluid">
+
+                <h1 class="h3 mb-2 text-gray-800">QUẢN LÝ LỊCH BÁO CÁO LUẬN VĂN</h1>
+                <p class="mb-4">Người quản trị thêm các lịch báo cáo và xếp lịch báo báo cáo cho từng nhóm phù
+                    hợp</p>
+
+
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h6 class="card-heading">Bảng lịch báo cáo</h6>
+                        <p>Học kỳ: 1 | Năm học: 2023-2024</p>
+                        <!-- <button class="add-topic-button"><i class="fas fa-plus" style="margin-right: 10px;"></i>Thêm
+                            lịch báo cáo mới</button> -->
+
+
+
+                        <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#newCalender">
+                            <i class="fas fa-plus" style="margin-right: 10px;"></i> Thêm lịch báo cáo mới
+                        </a>
+
+                        <div class="modal fade" id="newCalender" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <form [formGroup]="formAdd">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Thêm lịch báo cáo mới</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div>
+                                                <p>Thêm phòng báo cáo luận văn</p>
+                                                <input type="text" name="room" id="room" class="input11"
+                                                    formControlName="room" placeholder="Nhập phòng ...">
+                                            </div>
+                                            <div>
+                                                <p>Thêm tuần báo cáo</p>
+                                                <input type="text" name="week" id="week" class="input11"
+                                                    formControlName="week" placeholder="Nhập tuần ...">
+                                            </div>
+                                            <div>
+                                                <p>Thêm ngày báo cáo</p>
+                                                <input type="text" name="day" id="day" class="input11"
+                                                    formControlName="day" placeholder="Nhập ngày ...">
+                                            </div>
+                                            <div>
+                                                <p>Thêm buổi báo cáo</p>
+                                                <input type="text" name="period" id="period" class="input11"
+                                                    formControlName="period" placeholder="Nhập buổi ...">
+                                            </div>
+                                            <div>
+                                                <p>Thêm ghi chú lịch báo cáo</p>
+                                                <input type="text" name="note" id="note" class="input11"
+                                                    formControlName="note" placeholder="Nhập chú ý ...">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Đóng</button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                                (click)="addCalenders()">Đồng ý</button>
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table" id="dataTable">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Phòng</th>
+                                    <th>Tuần</th>
+                                    <th>Ngày</th>
+                                    <th>Buổi</th>
+                                    <th>Ghi chú</th>
+                                    <th style="width: 200px;">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let ca of calendars, index as i">
+                                    <td>{{ i+1 }}</td>
+                                    <td>{{ ca.room }}</td>
+                                    <td>{{ ca.week }}</td>
+                                    <td>{{ ca.day }}</td>
+                                    <td>{{ ca.period }}</td>
+                                    <td>{{ ca.note }}</td>
+                                    <td>
+                                        <a class="btn btn-primary btn-sm" style="margin-right: 5px;">
+                                            <i class="fas fa-edit"></i> Chỉnh sửa
+                                        </a>
+
+                                        <a class="btn btn-danger btn-sm" (click)="deleteCalender(ca.id)">
+                                            <i class="fas fa-trash"></i> Xóa
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+
+                <!--  -->
+
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h6 class="card-heading">Xếp lịch báo cáo</h6>
+                        <p>Học kỳ: | Năm học: </p>
+                        <!-- <button class="add-topic-button"><i class="fas fa-plus" style="margin-right: 10px;"></i>Thêm lịch báo cáo mới</button> -->
+                    </div>
+                    <div class="card-body">
+                        <table class="table" id="dataTable">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Nhóm sinh viên </th>
+                                    <th>Họ tên giảng viên</th>
+                                    <th>Danh sách nhóm sinh viên</th>
+                                    <th>Giảng viên hướng dẫn</th>
+                                    <th>Lịch</th>
+                                    <th style="width: 150px;">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <a class="btn btn-primary btn-sm" style="margin-right: 5px;">
+                                            <i class="fas fa-plus"></i> Thêm mới
+                                        </a>
+
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-primary btn-sm" style="margin-right: 5px;">
+                                            <i class="fas fa-edit"></i> Chỉnh sửa
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <!--  -->
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h6 class="card-heading">Bảng lịch báo cáo chung</h6>
+                    </div>
+                    <div class="card-body">
+                        <table class="table" id="dataTable">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Nhóm luận văn</th>
+                                    <th>Tuần</th>
+                                    <th>Thứ</th>
+                                    <th>Tiết</th>
+                                    <th>Danh sách sinh viên</th>
+                                    <th>Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Báo cáo LVTN-CNTT Nhóm 1</td>
+                                    <td>Tuần 18</td>
+                                    <td>Thứ 7</td>
+                                    <td>Tiết 12345</td>
+                                    <td><a>xem</a></td>
+                                    <td>Không</td>
+                                </tr>
+                                <!-- Thêm các hàng dữ liệu khác tương tự cho đề tài -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</div>

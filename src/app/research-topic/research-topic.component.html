@@ -1,0 +1,378 @@
+<div class="body" id="page-top">
+    <!-- quản lý đề tài => thêm sửa xóa các đề tài -->
+    <div id="wrapper">
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">Quản lý đề tài</h1>
+                <p class="mb-4">"Giảng viên đề xuất các đề tài mà sinh viên có thể tham khảo, sau đó sinh viên có thể
+                    đăng ký chọn một trong số đó, và quản lý đánh giá và duyệt các đề tài mà sinh viên đã đăng ký."</p>
+                <!-- lọc thông tin cho admin quản lý  -->
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Bảng đề tài</h6>
+                        <!-- <button class="add-topic-button"><i class="fas fa-plus" style="margin-right: 10px;"></i>Thêm đề
+                            tài mới</button> -->
+
+
+                        <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#newtopic">
+                            <i class="fas fa-plus" style="margin-right: 10px;"></i> Thêm đề tài mới
+                        </a>
+
+                        <div class="modal fade" id="newtopic" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <form [formGroup]="form">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Thêm đề tài luận văn mới</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="text" name="name" id="name" class="input11"
+                                                formControlName="name" placeholder="Nhập tên đề tài...">
+                                            <!-- <input type="text" name ="" class="input11" placeholder="Chuyên ngành..."> -->
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Đóng</button>
+                                            <!-- (click)="cancel(r.id) "  -->
+                                            <!-- chưa đỗ dữ liệu hủy  -->
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                                (click)="addTopic()">Đồng ý</button>
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 100px;">STT</th>
+                                        <th>Tên đề tài</th>
+                                        <th style="width: 200px;">Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let t of topic;index as i">
+                                        <td>{{i+1}}</td>
+                                        <td>{{t.name}}</td>
+                                        <td>
+                                            <a class="btn btn-primary btn-sm" style="margin-right: 5px;">
+                                                <i class="fas fa-edit"></i> Chỉnh sửa
+                                            </a>
+
+                                            <a class="btn btn-danger btn-sm" (click)="deleteTopic(t.id)">
+                                                <i class="fas fa-trash"></i> Xóa
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- quản lý nhóm sinh viên  -->
+    <div id="wrapper">
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">Quản lý nhóm báo cáo</h1>
+                <p class="mb-4">"Giảng viên chia nhóm sinh viên đạt đủ điều kiện báo cáo"</p>
+                <!-- lọc thông tin cho admin quản lý  -->
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Nhóm sinh viên báo cáo</h6>
+                        <!-- <button class="add-topic-button"><i class="fas fa-plus" style="margin-right: 10px;"></i>Thêm
+                            nhóm mới</button> -->
+
+                        <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#group">
+                            <i class="fas fa-plus" style="margin-right: 10px;"></i> Thêm nhóm mới
+                        </a>
+
+                        <div class="modal fade" id="group" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <form [formGroup]="formGroupStudent">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Thêm nhóm sinh viên mới</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="text" class="input11" id="code" name="code"
+                                                formControlName="code" placeholder="Nhóm sinh viên...">
+                                            <input type="text" class="input11" id="note" name="note"
+                                                formControlName="note" placeholder="Nhập ghi chú...">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Đóng</button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                                (click)="addGroup()">Đồng ý</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Nhóm sinh viên</th>
+                                        <th>Ghi chú</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let group of groupStudent; index as i">
+                                        <td>{{ i + 1 }}</td>
+                                        <td>{{ group.code }}</td>
+                                        <td>{{ group.note }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- quản lý đăng ký hướng dẫn sinh  viên làm luận văn  -->
+    <div id="wrapper">
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">Quản lý đăng ký hướng dẫn sinh viên làm luận văn</h1>
+                <p class="mb-4">Quản lý sinh viên đăng ký giảng viên làm hướng dẫn luận văn của sinh viên.</p>
+
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Bảng đăng ký giảng viên hướng dẫn của sinh viên.
+                        </h6>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>MSSV</th>
+                                        <th>Họ tên sinh viên</th>
+                                        <th style="width: 200px;">Điểm trung tích lũy</th>
+                                        <th style="width: 200px;">Thao tác</th>
+                                        <th>Ghi chú (nếu từ chối)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let rt of registerTeacher; index as i">
+                                        <td>{{i+1}}</td>
+                                        <td>{{rt.numberStudent}}</td>
+                                        <td>{{rt.studentName}}</td>
+                                        <td>{{rt.mark}}</td>
+                                        <td *ngIf="rt.status == 0">
+                                            <a class="btn btn-primary btn-sm" style="margin-right: 5px;"
+                                                (click)="acceptRegisterTeacher(rt)">
+                                                <i class="fas fa-check-circle"></i> Đồng ý
+                                            </a>
+
+                                            <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#huyGVHD">
+                                                <i class="fas fa-times-circle"></i> Từ chối
+                                            </a>
+
+                                            <div class="modal fade" id="huyGVHD" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Lý do hủy
+                                                                đăng ký hướng dẫn sinh viên</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <input type="text" class="input11"
+                                                                placeholder="Nhập lý do hủy đăng đăng ký hướng dẫn sinh viên...">
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Đóng</button>
+                                                            <!-- (click)="cancel(r.id) "  -->
+                                                            <!-- chưa đỗ dữ liệu  vào  -->
+                                                            <button type="button" class="btn btn-primary"
+                                                                data-dismiss="modal">Đồng
+                                                                ý</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td *ngIf="rt.status == 1">Đã xác nhận</td>
+                                        <td *ngIf="rt.status == 2">Đã hủy</td>
+
+                                        <td>{{rt.note}}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+
+    <!-- quản lý đăng ký các đề tài  -->
+    <div id="wrapper">
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">Quản lý đăng ký đề tài sinh viên</h1>
+                <p class="mb-4">Quản lý các đăng ký đề tài của sinh viên.</p>
+
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Bảng đăng ký đề tài của sinh viên</h6>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 50px;">STT</th>
+                                        <th style="width: 100px;">MSSV</th>
+                                        <th style="width: 300px;">Họ tên sinh viên</th>
+                                        <th>Đề tài</th>
+                                        <th style="width: 200px;">Thao tác</th>
+                                        <th style="width: 200px;">Ghi chú (nếu từ chối)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let r of list1; index as i">
+                                        <td>{{i+1}}</td>
+                                        <td>{{r.student.numberStudent}}</td>
+                                        <td>{{r.student.name}}</td>
+                                        <td>{{r.topic !=null ? r.topic.name : r.topicName }}</td>
+                                        <td>
+                                            <div *ngIf="r.status == 1;">
+                                                Đã xác nhận
+                                            </div>
+                                            <div *ngIf="r.status == 2;">
+                                                Đã hủy
+                                            </div>
+                                            <div *ngIf="r.status == 0;">
+                                                <a class="btn btn-primary btn-sm" style="margin-right: 5px;"
+                                                    (click)="accept(r.id)">
+                                                    <i class="fas fa-check-circle"></i> Xác nhận
+                                                </a>
+
+                                                <a class="btn btn-danger btn-sm" data-toggle="modal"
+                                                    data-target="#exampleModal">
+                                                    <i class="fas fa-times-circle"></i> Hủy
+                                                </a>
+
+                                                <div class="modal fade" id="exampleModal" tabindex="-1"
+                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Lý do hủy
+                                                                    đăng ký đề tài</h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <input type="text" class="input11"
+                                                                    placeholder="Nhập lý do hủy đăng ký đề tài...">
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">Đóng</button>
+                                                                <button type="button" class="btn btn-primary"
+                                                                    (click)="cancel(r.id) " data-dismiss="modal">Đồng
+                                                                    ý</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        <td>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- End of Content Wrapper -->
+
+
+    </div>
+
+
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>
+
+</div>
+<!-- <app-studenttopic-admin></app-studenttopic-admin> -->
