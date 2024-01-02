@@ -1,8 +1,14 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { CalenderAdminService } from '../Services/calenderadmin/calenderadmin.service';
 import { CalenderService } from '../Services/calender/calender.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { GroupstudentService } from '../Services/groupstudent/groupstudent.service';
+import { Groupstudent } from '../Models/groupstudent/groupstudent';
+import { CalenderthesisService } from '../Services/calenderthsis/calenderthesis.service';
+import { Calenderthesis } from '../Models/calenderthsis/calenderthesis';
+import { GroupStudentStudent } from '../Models/GroupStudentStudent/group-student-student';
+import { GroupStudentStudentService } from '../Services/GroupStudentStudent/group-student-student.service';
 
 @Component({
   selector: 'app-calender-admin',
@@ -13,12 +19,17 @@ export class CalenderAdminComponent {
   calendars: any[] = [];
   editedCalendar: any = {}; // Thêm biến để lưu thông tin lịch đang chỉnh sửa
   formAdd: any;
-
-
-
+  groupStudents: Groupstudent[] = [];
+  groupStudentId!: number;
+  calendarId : number = 0 ;
+  calenderthesis!:Calenderthesis;
+  groupStudentStudent:GroupStudentStudent[] = [];
   constructor(fb: FormBuilder
     , private calenderAdminService: CalenderAdminService
     , private calenderService: CalenderService
+    , private detect: ChangeDetectorRef,private groupStudentService: GroupstudentService,
+    private calenderThesisService :CalenderthesisService,
+    private groupStudentStudentService: GroupStudentStudentService
   ) {
     this.formAdd = fb.group({
       room: ['', [Validators.required]],
@@ -28,9 +39,60 @@ export class CalenderAdminComponent {
       note: ['', [Validators.required]],
     });
   }
+  getGroupStudentId(id: number) {
+    this.groupStudentId = id;
+    this.calenderThesisService.getByGroupStudentId(this.groupStudentId).subscribe({
+      next:(response: Calenderthesis) => {
+        this.calenderthesis = response;
+      },
+      error: (error) => [
 
+      ]
+    })
+    this.groupStudentStudentService.getByGroupStudentId(this.groupStudentId).subscribe({
+      next:(response: GroupStudentStudent[]) => {
+        this.groupStudentStudent=response;
+      },
+      error: (error) => {
+
+      }
+    })
+  }
+  xepLich() {
+    if(this.calendarId == 0 ){
+      Swal.fire("Có lỗi",'Vui lòng chọn lịch','error');
+      return;
+    }
+    let c = {
+      "groupStudent": {
+            "id": this.groupStudentId
+          },
+      "calender": {
+            "id": this.calendarId
+          }
+    }
+    this.calenderThesisService.addCalenderThesis(c).subscribe({
+      next: (response: void)=> {
+        Swal.fire("Thành công","Bạn đã đăng ký thành công",'success');
+      },
+      error: (error) => {
+        Swal.fire("Thất bại",error.error.message,'error');
+      }
+    })
+  }
+  getAllGroupStudent() {
+    this.groupStudentService.getAllGroupStudent().subscribe({
+      next: (response: Groupstudent[]) => {
+        this.groupStudents = response;
+      },
+      error: (error) => {
+
+      }
+    })
+  }
   ngOnInit(): void {
     this.getCalendars();
+    this.getAllGroupStudent();
   }
 
   // hiển thị dữ liệu ra bảng 
@@ -46,6 +108,7 @@ export class CalenderAdminComponent {
       this.calenderAdminService.deleteCalendar(calendarId).subscribe(
         () => {
           this.getCalendars(); // Sau khi xóa thành công, tải lại danh sách lịch
+          this.detect.detectChanges();
         },
         (error) => {
           console.error("Lỗi xóa lịch:", error);
@@ -76,7 +139,7 @@ export class CalenderAdminComponent {
 
   // thêm lịch báo cáo mới
   addCalenders() {
-    console.log("thuer");
+    // console.log("thuer");
     this.calenderService.addCalender({
       "room": this.formAdd.value.room,
       "week": this.formAdd.value.week,
@@ -88,6 +151,7 @@ export class CalenderAdminComponent {
       next: (response: any) => {
         Swal.fire("Thành công", "Đã thêm lịch mới thành công", "success");
         this.formAdd.reset();
+        this.getCalendars();
       },
       error: (error) => {
         Swal.fire("Có lỗi xảy ra", error.error.message, "error");
@@ -102,8 +166,7 @@ export class CalenderAdminComponent {
     this.calenderService.delete(id).subscribe({
       next: (response: any) => {
         Swal.fire("Thành công", "Đã xóa lịch này thành công)", "success");
-        // this.addCalenders()
-        this.calendars;
+        this.getCalendars();
       },
       error: (error) => {
         Swal.fire("Lỗi", "Không thể xóa lịch báo cáo này", error);

@@ -150,3 +150,77 @@
     height: 40px; /* Đặt chiều cao tùy ý */
     border-radius: 10px;
 }
+
+.custom_a label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .custom_a label span {
+    margin-right: 10px;
+    width: 100px;
+  }
+  
+  .custom_a label.select-label {
+    margin-right: 50px;
+    /* Khoảng cách 50px giữa 2 label */
+  }
+  
+  .custom_a label.select-label:last-child {
+    margin-right: 0;
+    /* Không cần khoảng cách cho label cuối cùng */
+  }
+  
+  .custom_a label select {
+    flex: 1;
+    width: 400px;
+    /* Đặt chiều dài tùy ý */
+    height: 40px;
+    /* Đặt chiều cao tùy ý */
+    border-radius: 10px;
+  }
+  
+  .add-topic-button {
+    margin-top: 10px;
+    background-color: #007bff;
+    /* Đặt màu nền là xanh dương */
+    color: #fff;
+    /* Đặt màu chữ là trắng */
+    border: none;
+    /* Loại bỏ viền nút */
+    border-radius: 5px;
+    /* Làm cho góc bo tròn bằng cách đặt bán kính */
+    padding: 10px 20px;
+    /* Đặt lề bên trong của nút */
+    cursor: pointer;
+    /* Biểu tượng chuột là bàn tay khi di chuột vào nút */
+    /* margin-right: 10px; */
+  }
+  
+  .add-topic-button:hover {
+    background-color: #0056b3;
+    /* Màu nền khi di chuột vào nút */
+  }
+  
+  
+  .input11 {
+    width: 100%;
+    border-radius:5px;
+    font-size: 18px;
+    margin-top: 10px;
+    border: 1px solid black;
+    height: 50px;
+  }
+  .modal-title {
+    color: blue;
+  }
+  span {
+    margin-right: 10px;
+    margin-left: 10px;
+    color: red;
+  }
+
+h5 {
+    font-size: 18px;
+}

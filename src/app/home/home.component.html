@@ -1,14 +1,15 @@
 <div class="body" id="page-top">
-    <div id="wrapper" >
+    <div id="wrapper">
         <ul class="navbar-nav bg-gradient-primary sidebar-dark accordion" id="accordionSidebar">
-
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" routerLink="/home">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" routerLink="/home" style="margin-top: 20px;">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-calendar fa-3x"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3" style="font-size: 22px; text-align: center;"><b>GRADUATION THESIS</b></div>
-            </a>            
-            <hr class="sidebar-divider my-1">
+                <div class="sidebar-brand-text mx-3" style="font-size: 22px; text-align: center;"><b>GRADUATION
+                        THESIS</b></div>
+            </a>
+
+            <hr class="sidebar-divider my-0">
             <div *ngIf="teacher">
                 <div class="sidebar-brand-text mx-3 namead">{{teacher.name}}</div>
                 <div class="sidebar-brand-text mx-3 namead">{{teacher.email}}</div>
@@ -25,8 +26,8 @@
             <div class="sidebar-brand-text mx-3 namead" style="margin-bottom: 700px;">
                 Hệ thống quản lý
             </div>
-            
             <hr class="sidebar-divider">
+
         </ul>
         <div id="content-wrapper" class="d-flex flex-column">
 

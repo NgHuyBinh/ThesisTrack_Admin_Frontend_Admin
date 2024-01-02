@@ -18,35 +18,66 @@
                                     <th style="width: 15%;">Họ tên</th>
                                     <th style="width: 30%;">Nội dung phản hồi</th>
                                     <th style="width: 15%;">Thao tác</th>
-                                    <th style="width: 25%;">Trả lời</th>
+                                    <th style="width: 25%;">Tiếp nhận thông tin</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let feedback of feedbacks; let i = index">
+                                <tr *ngFor="let fb of feedbacks; let i = index">
                                     <td>{{ i + 1 }}</td>
-                                    <td>{{ feedback.student.numberStudent }}</td>
-                                    <td>{{ feedback.student.name }}</td>
-                                    <td>{{ feedback.note }}</td>
+                                    <td>{{ fb.student.numberStudent }}</td>
+                                    <td>{{ fb.student.name }}</td>
+                                    <td>{{ fb.note }}</td>
                                     <td>
-
-                                        <div *ngIf="feedback.status == 1;">
+                                        <div *ngIf="fb.status == 1;">
                                             Trả lời
-                                        </div>
-                                        <!-- <div *ngIf="feedback.status == 2;">
-                                            
-                                        </div> -->
-                                        <div *ngIf="feedback.status == 0;">
-                                            <a class="btn btn-primary btn-sm" style="margin-right: 5px;">
-                                                <i class="fas fa-edit"></i> Trả lời
+                                            <a class="btn btn-danger btn-sm" (click)="deleteFeedback(fb)" style="margin-left: 5px;">
+                                                <i class="fas fa-trash"></i>
                                             </a>
-                                            <a class="btn btn-danger btn-sm" (click)="deleteFeedback(feedback)">
+                                        </div>
+                                        <div *ngIf="fb.status == 0;">
+                                            <a class="btn btn-primary btn-sm" data-toggle="modal"
+                                                data-target="#newtopic">
+                                                <i class="fas fa-plus" style="margin-right: 10px;"></i> Xử lý
+                                            </a>
+                                            <a class="btn btn-danger btn-sm" (click)="deleteFeedback(fb)" style="margin-left: 5px;">
                                                 <i class="fas fa-trash"></i> Xóa
                                             </a>
+
+                                            <!-- form xử lý phản hòi  -->
+                                            <div class="modal fade" id="newtopic" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <form [formGroup]="form">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Nhập nội
+                                                                    dung xử lý phản hồi</h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <input type="text" name="reply" id="reply"
+                                                                    class="input11" formControlName="reply"
+                                                                    placeholder="Nhập nội dung...">
+
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">Đóng</button>
+                                                                <button type="button" class="btn btn-primary"
+                                                                    data-dismiss="modal"
+                                                                    (click)="replyFeedback(fb.id)">Đồng ý</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </div>
 
                                     </td>
-
-                                    <td> {{ feedback.reply}} </td>
+                                    <td> {{ fb.reply}} </td>
                                 </tr>
                             </tbody>
                         </table>

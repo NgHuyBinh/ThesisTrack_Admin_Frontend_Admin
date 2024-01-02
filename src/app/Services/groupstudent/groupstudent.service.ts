@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Groupstudent } from 'src/app/Models/groupstudent/groupstudent';
 import { AppConfig } from 'src/app/config/AppConfig';
 
 @Injectable({
@@ -18,7 +19,7 @@ export class GroupstudentService {
   }
 
 
-  getAllGroupStudent() : Observable<any[]> {
+  getAllGroupStudent() : Observable<Groupstudent[]> {
     return this.http.get<any[]>(this.getFullUrl(`api/v1/groupstudents/all`))
   }
 

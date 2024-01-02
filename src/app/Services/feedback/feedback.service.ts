@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Observer } from 'rxjs';
@@ -18,7 +18,6 @@ export class FeedbackService {
   }
 
   getAllFeedback(): Observable<any[]> {
-    // const url = this.getFullUrl("api/v1/feedbacks/all");
     return this.http.get<any[]>(this.getFullUrl(`api/v1/feedbacks/all`));
   }
 
@@ -28,10 +27,19 @@ export class FeedbackService {
     return this.http.delete<void>(this.getFullUrl(`api/v1/feedbacks/${id}`));
   }
 
-  updateFeedback(id: number, updatedFeedback: any): Observable<string> {
-    const url = this.getFullUrl("api/v1/feedbacks/${id}");
-    return this.http.patch<string>(url, updatedFeedback);
+  updateFeedback(id: number, reply: string): Observable<void> {
+    const url = this.getFullUrl(`api/v1/feedbacks/${id}`);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.put<void>(url, { reply }, { headers });
   }
+
+  // updateFeedback(id: number, updatedFeedback: any): Observable<string> {
+  //   const url = `${this.apiUrl}/${id}`;
+  //   return this.http.patch<string>(url, updatedFeedback);
+  // }
 
 
 }

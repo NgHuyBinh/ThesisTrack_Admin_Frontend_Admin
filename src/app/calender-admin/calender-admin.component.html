@@ -40,18 +40,25 @@
                                             </div>
                                             <div>
                                                 <p>Thêm tuần báo cáo</p>
-                                                <input type="text" name="week" id="week" class="input11"
-                                                    formControlName="week" placeholder="Nhập tuần ...">
+                                                <select name="week" id="week" class="input11" formControlName="week">
+                                                    <option value="17">Tuần 17</option>
+                                                    <option value="18">Tuần 18</option>
+                                                    <option value="19">Tuần 19</option>
+                                                    <option value="20">Tuần 20</option>
+                                                </select>
                                             </div>
                                             <div>
                                                 <p>Thêm ngày báo cáo</p>
-                                                <input type="text" name="day" id="day" class="input11"
+                                                <input type="date" name="day" id="day" class="input11"
                                                     formControlName="day" placeholder="Nhập ngày ...">
                                             </div>
                                             <div>
                                                 <p>Thêm buổi báo cáo</p>
-                                                <input type="text" name="period" id="period" class="input11"
-                                                    formControlName="period" placeholder="Nhập buổi ...">
+                                                <select name="period" id="period" class="input11"
+                                                    formControlName="period">
+                                                    <option value="Sáng">Sáng</option>
+                                                    <option value="Chiều">Chiều</option>
+                                                </select>
                                             </div>
                                             <div>
                                                 <p>Thêm ghi chú lịch báo cáo</p>
@@ -122,31 +129,113 @@
                             <thead>
                                 <tr>
                                     <th>STT</th>
-                                    <th>Nhóm sinh viên </th>
-                                    <th>Họ tên giảng viên</th>
-                                    <th>Danh sách nhóm sinh viên</th>
-                                    <th>Giảng viên hướng dẫn</th>
-                                    <th>Lịch</th>
-                                    <th style="width: 150px;">Thao tác</th>
+                                    <th>Nhóm sinh viên</th>
+                                    <th>Giang viên hướng dẫn</th>
+                                    <th>Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                <tr *ngFor="let g of groupStudents;index as i ">
+                                    <td>{{i+1}}</td>
+                                    <td>{{g.code}}</td>
+                                    <td>{{g.teacher.name}}</td>
                                     <td>
-                                        <a class="btn btn-primary btn-sm" style="margin-right: 5px;">
-                                            <i class="fas fa-plus"></i> Thêm mới
+                                        <!-- xem lịch  -->
+                                        <a class="btn btn-success btn-sm" data-toggle="modal" style="margin-right: 10px;" (click)="getGroupStudentId(g.id)"
+                                            data-target="#viewcalender">
+                                            <i class="fas fa-eye"></i> Xếp lịch
                                         </a>
 
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-primary btn-sm" style="margin-right: 5px;">
-                                            <i class="fas fa-edit"></i> Chỉnh sửa
+                                        <div class="modal fade" id="viewcalender" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Lịch báo cáo</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <select name="calender" id="calender" [(ngModel)]="calendarId" class="form-select">
+                                                            <option value="0">Chọn lịch</option>
+                                                            <option *ngFor="let c of calendars" [value]="c.id">Phòng {{c.room}} - Tuần {{c.week}} - Ngày {{c.day}} - Buổi {{c.period}} </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-success" (click)="xepLich()"
+                                                            >Xác nhận</button>
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Đóng</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- xem danh sách sinh viên   -->
+                                        <a class="btn btn-success btn-sm" data-toggle="modal"
+                                            data-target="#viewstudent" (click)="getGroupStudentId(g.id)">
+                                            <i class="fas fa-eye"></i> Xem chi tiết
                                         </a>
+
+                                        <div class="modal fade" id="viewstudent" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Danh sách sinh
+                                                            viên</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div >
+                                                            <div *ngIf="calenderthesis && calenderthesis.calender">
+                                                                <p>Phòng {{ calenderthesis.calender.room }}</p>
+                                                                <p>Tuần {{ calenderthesis.calender.week }}</p>
+                                                                <p>Ngày {{ calenderthesis.calender.day }}</p>
+                                                                <p>Buổi {{ calenderthesis.calender.period }}</p>
+                                                                <p>Ghi chú {{ calenderthesis.calender.note }}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <table class="table" style="font-size: small;">
+                                                                    <thead class="table-dark">
+                                                                      <tr>
+                                                                        <th>Họ tên</th>
+                                                                        <th>MSSV</th>
+                                                                        <th>Email</th>
+                                                                        <th>SĐT</th>
+                                                                      </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    <ng-container *ngIf="groupStudentStudent">
+                                                                        <tr *ngFor="let g of groupStudentStudent">
+                                                                            <td>{{g.student.name}}</td>
+                                                                            <td>{{g.student.numberStudent}}</td>
+                                                                            <td>{{g.student.email}}</td>
+                                                                            <td>{{g.student.phone}}</td>
+                                                                        </tr>
+                                                                    </ng-container>
+                                                                      
+                                                                    </tbody>
+                                                                  </table>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Đóng</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </td>
                                 </tr>
                             </tbody>
@@ -155,7 +244,7 @@
 
                 </div>
                 <!--  -->
-                <div class="card shadow">
+                <!-- <div class="card shadow">
                     <div class="card-header">
                         <h6 class="card-heading">Bảng lịch báo cáo chung</h6>
                     </div>
@@ -182,12 +271,10 @@
                                     <td><a>xem</a></td>
                                     <td>Không</td>
                                 </tr>
-                                <!-- Thêm các hàng dữ liệu khác tương tự cho đề tài -->
-                            </tbody>
                         </table>
                     </div>
 
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
